@@ -71,7 +71,7 @@ var questionBank = [{
 }];
 var triviaQuestions;
 //console.log(questionBank);
-var initialTimer = 3;
+var initialTimer = 21;
 var intervalId;
 var counter;
 var totalCorrect;
@@ -89,6 +89,7 @@ function questionSelector() {
     }
     startTrivia();
 
+
 }
 
 //Function to Start the trivia game
@@ -103,6 +104,9 @@ function startTrivia() {
 
 //Function to display the next quesiton
 function displayNextQuestion() {
+    initialTimer = 21;
+    //console.log(questionBank[triviaQuestions[counter]].question);
+    // console.log(questionBank[triviaQuestions[counter]].correctAnswer);
     var questionToDisplay = $('<h2>').addClass('question').text(questionBank[triviaQuestions[counter]].question);
     var answerButtons = $('<div>').addClass('answers');
     var numberOfAnswers = questionBank[triviaQuestions[counter]].answers.length;
@@ -113,61 +117,62 @@ function displayNextQuestion() {
     }
 
     $('#question').empty().append(questionToDisplay, answerButtons);
-    intervalId = setTimeout(checkAnswer, 3000);
-    console.log(intervalId);
+    counter++;
+    run();
 }
 
 
 //Function to check the answer inputed by the user
 function checkAnswer(event) {
     clearTimeout(intervalId);
-    console.log("we are inside here");
-    console.log(event);
-    console.log($(this).data("index"));
     //grab the user choice
     //compare the click event with the correct answer
     //if correct correctanswer++
     //if wrong wronganswer++
-    //if you have a next question continue on
-    //if you have no questions left display result
-
-}
-
-
-//Function that resets the timer
-var resetTimer = function() {
-    initialTimer = 3;
-}
-
-//Function that will display and call the run function
-var countdownTimer = function() {
-    initialTimer--;
-    $("#timer").empty().append("Time Remaining: " + initialTimer);
-    if (initialTimer < 1) {
-        counter++;
-        if (counter > triviaQuestions.length - 1) {
-            stop();
-            alert("Game Over");
-        } else {
-            console.log(counter);
-            $("#question").empty().append(questionBank[triviaQuestions[counter]].question);
-            $("#a").empty().append(questionBank[triviaQuestions[counter]].answer1);
-            $("#b").empty().append(questionBank[triviaQuestions[counter]].answer2);
-            $("#c").empty().append(questionBank[triviaQuestions[counter]].answer3);
-            $("#d").empty().append(questionBank[triviaQuestions[counter]].answer4);
-            resetTimer();
-
-        }
+    //if you have a next question continue on (displayNextQuestion), else
+    //if you have no questions left display result (stop function)
+    var userGuess = $(this).data("index");
+    //  console.log(userGuess);
+    if (userGuess == questionBank[triviaQuestions[counter]].correctAnswer) {
+        totalCorrect++;
+        // console.log(totalCorrect);
+    } else {
+        totalWrong++;
+        //  console.log(totalWrong);
+    }
+    if (counter < 10) {
+        displayNextQuestion();
+    } else {
+        stop();
     }
 }
 
+//Function to run and display the 20 second timer
+function questionTimer() {
+    initialTimer--;
+    $("#timer").empty().append(initialTimer);
+    if (initialTimer === 0) {
+        clearTimeout(intervalId);
+        displayNextQuestion();
+    }
+}
 
+//Function to call the questionTimer every second so that it countsdown
+function run() {
+    console.log(questionBank[triviaQuestions[counter]].question);
+    console.log(questionBank[triviaQuestions[counter]].correctAnswer);
+    intervalId = setInterval(questionTimer, 1000);
+}
 
 
 //Function that stops the timer after the 10 questions
-var stop = function() {
+function stop() {
     console.log("Firing stop function");
     clearInterval(intervalId);
+    $(".question").hide();
+    $(".answers").hide();
+    $("#timer").empty().append("You got " + correctAnswer + " out of 10 correct");
+
 }
 
 //$("#jumbotron").empty().append('<img src =' + questionBank[triviaQuestions[0]].imageUrl + '>');
