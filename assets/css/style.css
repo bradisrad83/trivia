@@ -3,16 +3,6 @@
     src: url("Distant-Galaxy/DISTGRG_.ttf");
 }
 
-@font-face {
-    font-family: Starjhol;
-    src: url("boba-fonts_star-jedi/Starjhol.tff");
-}
-
-@font-face {
-    font-family: Starjedi;
-    src: url("boba-fonts_star-jedi/Starjedi.tff");
-}
-
 body {
     background-image: url("background.jpg");
     background-repeat: no-repeat;
@@ -47,6 +37,12 @@ h1 {
     margin-right: 15%;
     margin-left: 15%;
     opacity: 0.6;
+    background-image: url("default.jpg");
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .container {
@@ -57,7 +53,7 @@ h1 {
 #timer {
     font-size: 30px;
     text-align: center;
-    color: black;
+    color: white;
 }
 
 #question {

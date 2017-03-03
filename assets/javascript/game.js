@@ -266,6 +266,9 @@ var intervalId;
 var counter;
 var totalCorrect;
 var totalWrong;
+var clickButtonAudio = new Audio("assets/soundclips/Swing02.wav");
+var introAudio = new Audio("assets/soundclips/star-wars-theme-song.mp3");
+var countdownAudio = new Audio("assets/soundclips/imperial_march.mp3");
 
 //Function used to select 10 questions out of the question bank
 function questionSelector() {
@@ -303,19 +306,21 @@ function displayNextQuestion() {
     for (var i = 0; i < numberOfAnswers; i++) {
         var newButton = $('<button>').addClass('answer btn btn-lrg btn-default btn-block').text(questionBank[triviaQuestions[counter]].answers[i])
             .data('index', i).on("click", checkAnswer);
+
         answerButtons.append(newButton);
     }
 
-    //$(".jumbotron").empty().append('<img src =' + questionBank[triviaQuestions[counter]].imageUrl + '>');
+    $(".jumbotron").css('background-image', 'url(' + questionBank[triviaQuestions[counter]].imageUrl + ')');
     $('#question').empty().append(questionToDisplay, answerButtons);
 
-    console.log(questionBank[triviaQuestions[counter]].imageUrl);
+    // console.log(questionBank[triviaQuestions[counter]].imageUrl);
     run();
 }
 
 
 //Function to check the answer inputed by the user
 function checkAnswer(event) {
+    clickButtonAudio.play();
     clearTimeout(intervalId);
     $("#timer").empty();
     //grab the user choice
@@ -354,8 +359,6 @@ function questionTimer() {
 
 //Function to call the questionTimer every second so that it countsdown
 function run() {
-    //console.log(questionBank[triviaQuestions[counter]].question);
-    //console.log(questionBank[triviaQuestions[counter]].correctAnswer);
     intervalId = setInterval(questionTimer, 1000);
 }
 
@@ -378,9 +381,11 @@ function stop() {
 jQuery(document).ready(function($) {
     console.log("Document Ready");
     $("#reset-btn").hide();
+    introAudio.play();
     $("#start-btn").on("click", function() {
         questionSelector();
         console.log(triviaQuestions);
         $(this).hide();
+        introAudio.pause();
     });
 });
