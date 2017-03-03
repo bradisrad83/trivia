@@ -1,3 +1,18 @@
+@font-face {
+    font-family: distant-galaxy;
+    src: url("Distant-Galaxy/DISTGRG_.ttf");
+}
+
+@font-face {
+    font-family: Starjhol;
+    src: url("boba-fonts_star-jedi/Starjhol.tff");
+}
+
+@font-face {
+    font-family: Starjedi;
+    src: url("boba-fonts_star-jedi/Starjedi.tff");
+}
+
 body {
     background-image: url("background.jpg");
     background-repeat: no-repeat;
@@ -5,16 +20,15 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    font-family: distant-galaxy;
 }
 
 h1 {
-    color: black;
-    opacity: 0.2;
+    color: blue;
     text-align: center;
-}
-
-#id {
-    text-align: center;
+    font-size: 100px;
+    text-shadow: 1px 1px 0 black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 0px 1px 0 black, 1px 0px 0 black, 0px -1px 0 black, -1px 0px 0 black, 4px 4px 3px #000;
+    opacity: 0.5;
 }
 
 .col-md-12 {
@@ -32,38 +46,37 @@ h1 {
     padding-bottom: 15%;
     margin-right: 15%;
     margin-left: 15%;
+    opacity: 0.6;
 }
 
 .container {
-    color: white;
+    color: grey;
+    opacity: 0.5;
 }
 
 #timer {
     font-size: 30px;
+    text-align: center;
+    color: black;
 }
 
 #question {
+    color: red;
     text-align: center;
     font-size: 30px;
 }
 
-.btn {
-    font-size: 20px;
+#start-btn {
     text-align: center;
+    font-size: 50px;
 }
 
-#a {
-    width: 100%;
+#reset-btn {
+    text-align: center;
+    font-size: 50px;
 }
 
-#b {
-    width: 100%;
-}
-
-#c {
-    width: 100%;
-}
-
-#d {
-    width: 100%;
+.btn-block {
+    text-align: left;
+    color: blue;
 }
