@@ -91,7 +91,7 @@ var questionBank = [{
 }, {
     question: "What fatal flaw did the rebels exploit to destroy the first Death Star?",
     answers: ["Unstable nuclear reactor core", "Unstable hypermatter reactor", "Incomplete structural support", "Exposed thermal exhaust port"],
-    imageUrl: "assets/images/deathstar.jpg",
+    imageUrl: "assets/images/deathstar.png",
     correctAnswer: 3
 }, {
     question: "What micro-organisms are said to be conductors of the Force?",
@@ -116,7 +116,7 @@ var questionBank = [{
 }, {
     question: "Who was the actor inside R2-D2?",
     answers: ["David Prowse", "Kenny Baker", "Michael Winslow", "There wasn't an actor inside R2-D2"],
-    imageUrl: "assets/images/r2d2.jpg",
+    imageUrl: "assets/images/r2d2.jpeg",
     correctAnswer: 1
 }, {
     question: "What was Anakin Skywalker's mom's name?",
@@ -196,7 +196,7 @@ var questionBank = [{
 }, {
     question: "What do the Ewoks threaten to do to Han Solo?",
     answers: ["Roast him over a spit", "Hang him upside down over a scorpion pit", "Burn him at the stake", "Crush him under a log"],
-    imageUrl: "assets/images/ewoks/jpg",
+    imageUrl: "assets/images/ewoks.jpg",
     correctAnswer: 0
 }, {
     question: "On what planet does Jabba the Hutt live?",
@@ -260,7 +260,6 @@ var questionBank = [{
     correctAnswer: 2
 }];
 var triviaQuestions;
-//console.log(questionBank);
 var initialTimer = 21;
 var intervalId;
 var counter;
@@ -297,6 +296,8 @@ function startTrivia() {
 
 //Function to display the next question
 function displayNextQuestion() {
+    countdownAudio.currentTime = 0;
+    countdownAudio.play();
     initialTimer = 21;
     console.log(questionBank[triviaQuestions[counter]].question);
     console.log(questionBank[triviaQuestions[counter]].correctAnswer);
@@ -320,6 +321,7 @@ function displayNextQuestion() {
 
 //Function to check the answer inputed by the user
 function checkAnswer(event) {
+    countdownAudio.pause();
     clickButtonAudio.play();
     clearTimeout(intervalId);
     $("#timer").empty();
@@ -333,10 +335,10 @@ function checkAnswer(event) {
     console.log(userGuess);
     if (userGuess == questionBank[triviaQuestions[counter]].correctAnswer) {
         totalCorrect++;
-        console.log("you have" + totalCorrect + "correct");
+        // console.log("you have" + totalCorrect + "correct");
     } else {
         totalWrong++;
-        console.log("you have" + totalWrong + "wrong");
+        //console.log("you have" + totalWrong + "wrong");
     }
     counter++;
     if (counter < 10) {
@@ -367,6 +369,8 @@ function run() {
 function stop() {
     console.log("Firing stop function");
     clearInterval(intervalId);
+    introAudio.currentTime = 0;
+    introAudio.play();
     $(".question").hide();
     $(".answers").hide();
     $("#timer").empty().append("You got " + totalCorrect + " out of 10 correct");
@@ -374,6 +378,7 @@ function stop() {
         $("#timer").empty()
         questionSelector();
         $(this).hide();
+        introAudio.pause();
     })
 
 }
